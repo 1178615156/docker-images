@@ -2,3 +2,7 @@ FROM public.ecr.aws/q9t5s3a7/vllm-cpu-release-repo:v0.12.0
 
 # ENV HF_ENDPOINT=https://hf-mirror.com
 RUN hf download Qwen/Qwen3-0.6B
+
+
+
+# docker run -it --rm --network host -e VLLM_CPU_KVCACHE_SPACE=1 -e HF_ENDPOINT=https://hf-mirror.com registry.cn-hangzhou.aliyuncs.com/a1178615156/vllm-qianwen3:latest --model=Qwen/Qwen3-0.6B   --max-model-len 4096
