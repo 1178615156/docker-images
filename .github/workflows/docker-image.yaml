@@ -1,0 +1,35 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  cache:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+ 
+      - name: Login
+        uses: docker/login-action@v3
+        with:
+          registry: registry.cn-hangzhou.aliyuncs.com
+          username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+          password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+ 
+      - name: vllm-qianwen3
+        uses: docker/build-push-action@v5
+        with:
+          context: .github
+          file: Dockerfile.vllm-qianwen3
+          push: true
+          platforms: linux/amd64
+          tags: |
+            registry.cn-hangzhou.aliyuncs.com/a1178615156/vllm-qianwen3:latest
+ 
