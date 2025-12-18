@@ -12,6 +12,11 @@ jobs:
 
   cache:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dockerfile: 
+          # - vllm-qianwen3
+          - ollama-qianwen3
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -20,16 +25,16 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: registry.cn-hangzhou.aliyuncs.com
-          username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+          username: a1178615156
           password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
  
-      - name: vllm-qianwen3
+      - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .github
-          file: Dockerfile.vllm-qianwen3
+          context: .
+          file: Dockerfile.${{ matrix.dockerfile }}
           push: true
           platforms: linux/amd64
           tags: |
-            registry.cn-hangzhou.aliyuncs.com/a1178615156/vllm-qianwen3:latest
+            registry.cn-hangzhou.aliyuncs.com/a1178615156/${{ matrix.dockerfile }}:latest
  
