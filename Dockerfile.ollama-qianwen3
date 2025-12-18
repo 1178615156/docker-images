@@ -1,2 +1,2 @@
 FROM ollama/ollama
-RUN ollama serve && ollama pull qwen3:0.6b
+#RUN ollama serve && ollama pull qwen3:0.6b
