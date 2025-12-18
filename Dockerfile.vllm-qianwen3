@@ -1,0 +1,4 @@
+FROM public.ecr.aws/q9t5s3a7/vllm-cpu-release-repo:v0.12.0
+
+# ENV HF_ENDPOINT=https://hf-mirror.com
+RUN hf download Qwen/Qwen3-0.6B
